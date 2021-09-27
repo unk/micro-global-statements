@@ -134,6 +134,24 @@ function FontButton() {
 
 ---
 
+# Recoil : 특이사항
+
+* Provider 역할을 하는 <RecoilRoot> 가 필요
+
+* 일반적으로 프로젝트 루트에 위치
+
+```js
+function App() {
+  return (
+    <RecoilRoot>
+      <Componoent />
+    </RecoilRoot>
+  );
+}
+```
+
+---
+
 # Jotai
 
 * 개발그룹 Poimandres 에서 발표
@@ -171,3 +189,91 @@ function Counter() {
   );
 }
 ```
+
+---
+
+# Zustand
+
+* 개발그룹 Poimandres 에서 발표
+
+* 독일어로 '상태'를 나타내는 단어
+
+---
+
+# Zustand : Code
+
+## 선언
+
+```js
+const useStore = create(set => ({
+  bears: 0,
+  increasePopulation: () => set(state => ({ bears: state.bears + 1 })),
+  removeAllBears: () => set({ bears: 0 })
+}));
+```
+
+---
+
+# Zustand : Code
+
+## 사용
+
+```js
+function Component() {
+  const bears = useStore(state => state.bears);
+  const increasePopulation = useStore(state => state.increasePopulation);
+  return <>
+    <h1>{bears} around here ...</h1>
+    <button onClick={increasePopulation}>one up</button>
+  </>
+}
+```
+
+---
+
+# Jotai & Zustand
+
+* 둘 다 개발그룹 Poimandres 에서 발표
+
+* Jotai는 Recoil에 가까운 형태
+
+* Zustand는 Redux에 가까운 형태
+
+---
+
+# 기존 전역 상태 관리의 문제
+
+온갖 것들이 모두 들어간 거대한 데이터 덩어리
+
+```js
+function App() {
+  return <Provider state={
+    auth: ...
+    service: ...
+    others: ...
+  }>
+    <Component />
+  </Provider>
+}
+```
+
+---
+
+# 기존 전역 상태 관리의 문제
+
+* 기존의 전역 상태 관리 도구도 가능한 상태를 역할별로 자르도록 권고 → 잘 지켜지지 않음
+* 이유 : 중첩되는 Provider의 귀찮음 등등...
+
+```js
+function App() {
+  return <AuthProvider>
+    <ServiceProvider>
+      <Component />
+    </ServiceProvider>
+  </AuthProvider>
+}
+```
+
+**"가능한 것"과 "편리한 것"은 다르기 때문**
+
+---

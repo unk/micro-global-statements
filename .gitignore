@@ -1,0 +1,13 @@
+# System
+.DS_Store
+
+# IDE
+.vscode
+.idea
+*.iml
+
+# build
+/dist
+
+# tmp
+/.tmp

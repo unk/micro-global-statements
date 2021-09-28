@@ -101,6 +101,8 @@ class: impact
 
 * 직접적으로 Context API의 한계에 대해 언급
 
+  * 주로 너무 많은 리렌더링과 코드 분할의 어려움에 대한 내용
+
 ---
 
 # Recoil : Code
@@ -136,7 +138,7 @@ function FontButton() {
 
 # Recoil : 특이사항
 
-* Provider 역할을 하는 <RecoilRoot> 가 필요
+* Provider 역할을 하는 RecoilRoot 가 필요
 
 * 일반적으로 프로젝트 루트에 위치
 
@@ -241,6 +243,12 @@ function Component() {
 
 ---
 
+class: impact
+
+## 초소형 전역 상태의 도입으로 달라지는 점들
+
+---
+
 # 기존 전역 상태 관리의 문제
 
 온갖 것들이 모두 들어간 거대한 데이터 덩어리
@@ -277,3 +285,38 @@ function App() {
 **"가능한 것"과 "편리한 것"은 다르기 때문**
 
 ---
+
+# 도입 후 : 역할별로 아톰 생성
+
+```js
+export const authAtom = atom( ... );
+
+export const serviceAtom = atom( ... );
+
+export const othersAtom = atom( ... );
+```
+
+## 전역 상태 관리의 패러다임 변화
+
+클래스 컴포넌트의 this.state 가 함수 컴포넌트의 useState() 로 대체되는 정도의 변화
+
+---
+
+# 남은 고민들
+
+**Redux의 미들웨어들을 대체할 수 있는가?**  
+→ 커스텀 훅과 헬퍼 함수들로 가능할 것  
+→ 하지만 미들웨어 의존성이 높다면 그냥 Redux를 쓰는 것이...
+
+**성능 향상이 있는가?**  
+→ 리렌더링 횟수를 체크해보면 확실히 줄어듬  
+→ 사실 기존에도 그렇게 느리지 않았음  
+→ 도입한 이유는 성능보다는 개발 생산성 측면이 큼
+
+---
+
+class: impact
+
+## 질문 받습니다
+
+### 감사합니다
